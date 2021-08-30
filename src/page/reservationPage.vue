@@ -10,26 +10,30 @@
             </div>
         </div>
     </nav>
+    <p class="title1" style="width: 100%;margin-top: 20px;left: 5px;margin-bottom: 0;">
+        Réservation
+    </p>
+    <p class="title1 subtitle">Cliquez sur une heure pour réserver</p>
     <div id="reservationBody">
         <div class="col-sm" id="dateHelper">    
-            <div id="calendar">
+            <div id="calendar" class="go-container">
                 <vue-cal ref="vuecal" id="vucal" v-bind:selected-date="selectedDate" v-bind:on-event-click="deleteHour" class="vuecal--full-height-delete" v-bind:editable-events="{ title: false, drag: false, resize: true, delete: true, create: false }" v-bind:hide-weekdays="[7]"  v-bind:time-step="30" v-bind:time-from="20 * 30" v-bind:time-to="32 * 30" v-bind:disable-views="['day']" :cell-click-hold="false" :drag-to-create-event="false" v-bind:events="events" @cell-click="selectHalf($event)" locale="fr"></vue-cal>
             </div>
             <div id="weekHelper" >
-                <button id="backToWeek" v-bind:disabled="weekCounter == 0" v-on:click="selectedDate= new Date()">
+                <button id="backToWeek" class="go-container" v-bind:disabled="weekCounter == 0" v-on:click="backToWeek">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-cw"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
                 </button>
-                <div id="weekControls">
-                    <button v-bind:disabled="weekCounter == 0" v-on:click="previousWeek">
+                <div id="weekControls" class="go-container">
+                    <button v-bind:disabled="weekCounter == 0" v-on:click="previousWeek" >
                         <svg class="weekControl" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><rect fill="none" height="24" width="24"/><path d="M9,19l1.41-1.41L5.83,13H22V11H5.83l4.59-4.59L9,5l-7,7L9,19z"/></svg>
                     </button>
                     <button v-on:click="nextWeek" v-bind:disabled="!(weekCounter < 4)">
-                        <svg class="weekControl" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><rect fill="none" height="24" width="24"/><path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/></svg>
+                        <svg class="weekControl" xmlns="http://www.w3.org/2000/svg" cenable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><rect fill="none" height="24" width="24"/><path d="M15,5l-1.41,1.41L18.17,11H2V13h16.17l-4.59,4.59L15,19l7-7L15,5z"/></svg>
                     </button>
                 </div>
             </div>
         </div>
-        <div class="col-sm" id="recap">
+        <div class="col-sm go-container" id="recap">
             <div id="courseType">
                 <p class="attribut">TYPE DE COURS</p>
                 <p class="value">ANGLAIS</p>
@@ -57,6 +61,7 @@
     </div>
 </div>
 <payement v-bind:hoursCounter="hoursCounter" v-bind:selectedHours="selectedHours" v-bind:events="events" ref="payementForm" ></payement>
+<conclusion />
 </template>
 <script>
 import VueCal from "vue-cal"
@@ -93,9 +98,7 @@ export default {
                 let target = e.children[3]
                 let previous = weekDays[i-1]!=undefined ? weekDays[i-1].children[3] : {innerHTML: "0"}
                 if(!target.innerHTML.includes(".")){
-                    if(month[1]) Number(target.innerHTML.split(".")[0]) < previous.innerHTML.split(".")[0] ? m=month[1] : m=month[0]
-                    else m = month[0]
-                    target.innerHTML = "<br/>" + target.innerHTML + "." + months[m]
+                    target.innerHTML = "<br/>" + target.innerHTML
                     target.classList.add("date")
                 }
             })
@@ -104,6 +107,11 @@ export default {
             if(this.selectedDate.getDay() == 0){
                 this.selectedDate = this.selectedDate.setDate(this.selectedDate.getDate()+1)
             } 
+        },
+        backToWeek(){
+            this.weekCounter = 0        
+            this.selectedDate = new Date()
+            this.watchSunday()
         },
         nextWeek(){
             this.weekCounter++ 
@@ -208,7 +216,7 @@ export default {
         let x = document.evaluate('//*[@id="vucal"]/div[2]/div/div/div/div[1]/div[11]/span[2]',document, null, XPathResult.ANY_TYPE, null).iterateNext()
         x.style.top="-20px"
         let first = document.evaluate('//*[@id="vucal"]/div[2]/div/div/div/div[1]/div[1]/span[2]',document, null, XPathResult.ANY_TYPE, null).iterateNext()
-        first.style.top = "-3px"
+        first.style.top = "-3px"    
     }
 
 }
@@ -244,7 +252,7 @@ export default {
     height: 100%;
     top: 100%;
     z-index: 30;
-    background-color: #6200EE;
+    background-color: white;
 }
 #scrollTop{
     width: 60px;
@@ -259,8 +267,8 @@ export default {
     max-width: 1300px;
     position: absolute;
     left: 50%;
+    margin-top: 100px;
     transform: translateX(-50%);
-    top: -20px;
     bottom: 50px;
     width: 100%;
 }
@@ -270,26 +278,27 @@ export default {
     margin-left: -10px;
 }
 
+.go-container{
+    background-color: white;
+    border-radius: 12px;
+    border: 2px solid #9990FF;
+    box-shadow: var(--shadow-small);
+}
+
 #recap{
     overflow-x: none;
     position: absolute;
-    background-color: #F2F4F5;
     height: 100%;
-    max-height: 700px;
-    padding-right: 10px;
+    max-height: 600px;
+    margin-right: 15px;
     top: 10px;
     right: -0px;
     width: 24%;
-    border-radius: 24px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 #courseType{
     margin-top: 20px;
 }
 #calendar{
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-    border-radius: 10px;
-    background-color: white;
     width: 100%
 }
 #recapitulatif{
@@ -415,11 +424,8 @@ p{
     margin-top: 12.5px;
     right: 150px;
     height: 55px;
-    border-radius: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    background-color: white;
+    border-radius: 24px !important;
     width: 60px;
-    border: none;
 }
 #backToWeek:not(:disabled) svg{
     stroke: #6B4EFF;
@@ -430,17 +436,14 @@ p{
 .weekControl{
     height: 52.5px;
     width: auto;
-    margin-top: 2px;
     fill: inherit
 }
 #weekControls{
     margin-top: 12.5px;
     height: 55px;
-    background-color: white;
     position: absolute;
     right: 5px;
-    border-radius: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    border-radius: 20px !important;
 }
 button:active:not(:disabled) {
     transform: scale(0.96)
@@ -473,6 +476,15 @@ button:active:not(:disabled) {
     color: #787885;
     font-size: 25px;
 }
+.subtitle{
+    color: #979C9E;
+    font-weight: 600;
+    font-size: 35px;
+    line-height: 35px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 @keyframes selectHour{
     from{
         transform: scale(0.95)

@@ -1,8 +1,8 @@
 <template lang="pug" >
-#conclusion(v-bind:style={display: paypalApproved ? "block" : "none"})
+#conclusion
     nav.navbar.navbar-expand-lg
         .container-fluid
-            a#topLogo.navbar-brand.title1 Ayoub Zalali
+            a#conclusionTopLogo.navbar-brand.title1 GoStudy
             #navbarNav.collapse.navbar-collapse
     p#conclusionBody
         img(src="../assets/finalbackground.png")
@@ -17,19 +17,15 @@
 <script>
 export default {
     data(){
-        return{
-            paypalApproved: false
-        }
+        return{}
     },
-    methods:{
-        approve(){
-            this.paypalApproved = true
-            window.scrollTo(0,document.getElementById("conclusion"))
-        }
-    }
 }
 </script>
-<style>
+<style scoped>
+nav{
+    background-color: #6B4EFF;
+    height: 10%;
+}
 #conclusionBody img{
     height: 60%;
     z-index: 20;
@@ -40,7 +36,7 @@ export default {
     top: 200%;
     z-index: 30;
     width: 100%;
-    background-color: #E3E5E5;
+    background-color: white;
 }
 #conclusionBody{
     margin-top: 30px;
@@ -48,7 +44,7 @@ export default {
     text-align: center;
     width: auto;
 }
-#topLogo{
+#conclusionTopLogo{
     color:white;    
 }
 #conclusionBody nav{

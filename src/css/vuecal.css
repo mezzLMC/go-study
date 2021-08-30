@@ -582,11 +582,9 @@
 }
 .vuecal__cell--current,
 .vuecal__cell--today {
-    background-color: rgba(240, 240, 255, 0.4);
     z-index: 1;
 }
 .vuecal__cell--selected {
-    background-color: rgba(235, 255, 245, 0.4);
     z-index: 2;
 }
 .vuecal--day-view .vuecal__cell--selected {

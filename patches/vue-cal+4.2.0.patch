@@ -1,0 +1,62 @@
+diff --git a/node_modules/vue-cal/dist/vuecal.common.js b/node_modules/vue-cal/dist/vuecal.common.js
+index dd9e5c7..3ec62da 100644
+--- a/node_modules/vue-cal/dist/vuecal.common.js
++++ b/node_modules/vue-cal/dist/vuecal.common.js
+@@ -6564,7 +6564,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
+         return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
+           class: "vuecal__time-cell",
+           key: i,
+-          style: "height: ".concat($props.timeCellHeight, "px")
++          style: "height: 120px"
+         }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["renderSlot"])(_ctx.$slots, "time-cell", {
+           hours: cell.hours,
+           minutes: cell.minutes
+@@ -6733,7 +6733,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
+                   return $options.onEventTitleBlur($event, event);
+                 },
+                 innerHTML: event.title
+-              }, null, 40, ["onBlur", "innerHTML"])) : event.title ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
++              }, null, 60, ["onBlur", "innerHTML"])) : event.title ? (Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
+                 key: 1,
+                 class: "vuecal__event-title",
+                 innerHTML: event.title
+@@ -7589,7 +7589,7 @@ var cell_CellUtils = function CellUtils(vuecal) {
+     };
+     var _this$_vuecal$$props = _this._vuecal.$props,
+         timeStep = _this$_vuecal$$props.timeStep,
+-        timeCellHeight = _this$_vuecal$$props.timeCellHeight,
++        timeCellHeight = 60,
+         timeFrom = _this$_vuecal$$props.timeFrom;
+     if (typeof e === 'number') minutes = e;else if (_typeof(e) === 'object') {
+       cursorCoords = _this.getPosition(e);
+@@ -9061,10 +9061,10 @@ function eventvue_type_template_id_cdf79fc4_lang_pug_render(_ctx, _cache, $props
+ 
+ 
+       var minutesFromTop = startTimeMinutes - this.vuecal.timeFrom;
+-      var top = Math.max(Math.round(minutesFromTop * this.vuecal.timeCellHeight / this.vuecal.timeStep), 0); // Bottom of event.
++      var top = Math.max(Math.round(minutesFromTop * 60 / this.vuecal.timeStep), 0); // Bottom of event.
+ 
+       minutesFromTop = Math.min(endTimeMinutes, this.vuecal.timeTo) - this.vuecal.timeFrom;
+-      var bottom = Math.round(minutesFromTop * this.vuecal.timeCellHeight / this.vuecal.timeStep);
++      var bottom = Math.round(minutesFromTop * 60 / this.vuecal.timeStep);
+       var height = Math.max(bottom - top, 5); // Min height is 5px.
+ 
+       return {
+@@ -9574,7 +9574,7 @@ eventvue_type_script_lang_js.render = eventvue_type_template_id_cdf79fc4_lang_pu
+       return Math.round(minutesFromTop * this.timeScale);
+     },
+     timeScale: function timeScale() {
+-      return this.options.timeCellHeight / this.options.timeStep;
++      return 60 / this.options.timeStep;
+     }
+   }
+ });
+@@ -9922,7 +9922,7 @@ var vue_calvue_type_script_lang_js_dateUtils = new date_DateUtils(textsDefaults)
+     },
+     timeCellHeight: {
+       type: Number,
+-      default: 40
++      default: 60
+     },
+     // In pixels.
+     timeFormat: {
