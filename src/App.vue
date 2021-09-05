@@ -30,8 +30,12 @@ export default {
 </script>
 
 <style>
+html {
+  scroll-behavior: smooth;
+}
 #app{
   width: 100%;
+  overflow-x: hidden;
   height: 100%;
   position: absolute;
   left: 0;

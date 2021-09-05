@@ -4,7 +4,8 @@
         .container-fluid
             a#conclusionTopLogo.navbar-brand.title1 GoStudy
             #navbarNav.collapse.navbar-collapse
-    p#conclusionBody
+     
+    p#conclusionBody.box-container
         img(src="../assets/finalbackground.png")
         br
         span#thanks.title1 Merci de ta réservation!
@@ -53,4 +54,5 @@ nav{
 #email{
     font-size: 30px;
 }
+
 </style>

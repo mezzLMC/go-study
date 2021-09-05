@@ -61,7 +61,7 @@
     </div>
 </div>
 <payement v-bind:hoursCounter="hoursCounter" v-bind:selectedHours="selectedHours" v-bind:events="events" ref="payementForm" ></payement>
-<conclusion />
+<conclusion v-if="false"/>
 </template>
 <script>
 import VueCal from "vue-cal"
@@ -200,7 +200,7 @@ export default {
         console.log(this.events)
     },
     mounted(){
-        this.getCalendarBusy()
+        //this.getCalendarBusy()
         this.watchSunday()
         setTimeout(()=>this.formatDate(),400)
         let cellArray = Array.from(document.getElementsByClassName("vuecal__time-cell"))
